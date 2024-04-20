@@ -167,7 +167,7 @@ exports.login = async (req, res) =>{
             const payload ={
                 email : findPerson.email,
                 id : findPerson._id,
-                role: findPerson.accountType,
+                accountType: findPerson.accountType,
     
              }
              const token =  jwt.sign(payload, process.env.SECRET_KEY,{
@@ -210,3 +210,42 @@ exports.login = async (req, res) =>{
 }
 
 //password change
+
+exports.passwordChange = async (req,res)=> {
+    try{
+        const {email, oldPassword, newPassword,confirmnewPassword} = req.body;
+        const user = await User.findOne({email});
+        if(await bcrypt.compare(oldPassword, user.password)){
+            if(newPassword !== confirmnewPassword){
+                return res.status(400).json({
+                    success: false,
+                    message: "newpassword and confirmnewPassword does not match"
+                })
+            }
+            const updatedPassword = await bcrypt.hash(newPassword,10);
+            const passwordchange = await User.findByIdAndUpdate({_id:user._id},{password: updatedPassword})
+            const mailSend = require("../utility/mailSender");
+            const responseOfMailsend = await mailSend(user.email ,"passwordchange-complete","password update successfully" );
+            return res.status(200).json({
+                success:true,
+                message: "'password update successfully",
+                passwordchange,
+                responseOfMailsend,
+
+            })
+        }
+        else{
+            return res.status(400).json({
+                success: false,
+                message: "enter password does  not match for the user"
+            })
+        }
+    }
+    catch(error){
+        console.log(error);
+        return res.status(400).json({
+            success: false,
+            message: "password update failed try again",
+        })
+    }
+}
