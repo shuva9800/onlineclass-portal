@@ -4,6 +4,7 @@ const  otpGenerator = require('otp-generator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require("dotenv").config();
+//not same with codehelp code in signup
 
 // addition code in signup 
 
@@ -112,6 +113,8 @@ if(!hassPassword){
     })
 }
 //create entry in db
+// ?????
+//see codehelp code
 //if need additional info to be add into db? code likhna padhaga
 
 
