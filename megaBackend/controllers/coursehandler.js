@@ -84,7 +84,7 @@ exports.courseCreate = async (req,res)=>{
 
 //get all coures
 
-exports.grtAllCourses= async (req,res)=>{
+exports.getAllCourses= async (req,res)=>{
     try{
         const allCourses = await coures.find({});
         if(!allCourses){
@@ -102,4 +102,47 @@ exports.grtAllCourses= async (req,res)=>{
             message: "error occure white all course data fetching"
         })
     }
+}
+
+//find specific courses by given id
+exports.getSpecificCourse =async (req,res)=>{
+    try{
+        //fetch datamean course id
+        const {courseid} =  req.body;
+        //validation
+        if(!courseid){
+            return res.status(400).json({
+                success:false,
+                message: "course is not found"
+            })
+        }
+        const courseDetails = await coures.findById({_id: courseid})
+                                                .populate("instractor")
+                                                .populate("courseContent")
+                                                .populate("ratingandreview")
+                                                .populate("studentEnroll")
+                                                .populate("catagory")
+                                                .exec();
+       
+       if(!courseDetails){
+        return res.status(400).json({
+            success:false,
+            message:"course is not found",
+
+        })
+       }
+       return res.status(200).json({
+        success:true,
+        message:"course fetch successfully",
+        course_details: courseDetails,
+       })                                       
+    }
+    catch(error){
+        console.log(error)
+        return res.status(500).json({
+            success:false,
+            message: "error occure white  course data fetching by course id"
+        })
+    }
+
 }
