@@ -116,6 +116,12 @@ if(!hassPassword){
 // ?????
 //see codehelp code
 //if need additional info to be add into db? code likhna padhaga
+const additionalData ={
+    gender:null,
+    dateOfbirth:null,
+    aboutre: null,
+    contactNumber:null,
+}
 
 
 const user = await User.create({
@@ -124,7 +130,8 @@ const user = await User.create({
     email,
     password:hassPassword,
     accountType,
-    phoneNumber,additional
+    phoneNumber,
+    additionalInfo:additionalData,
 })
 
 return res.status(200).json({
