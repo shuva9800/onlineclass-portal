@@ -47,3 +47,45 @@ exports.showAllCatagory = async (req,res)=>{
         })
     }
 }
+//catagory page details
+
+exports.catagoryPageDetails = async (req,res)=>{
+    try{
+        //get catagory id
+    const {catagoryId} = req.body
+    //get course for specfic catagory id
+    const course = await Catagory.findById({_id:catagoryId}).populate("course").exec();
+    //validation for coourse
+    if(!course){
+        return res.status(404).json({
+            success:false,
+            message: "there is no avaliable course for this catagory"
+        })
+    }
+    //get courses for different catagory
+    const differentCategories = await Catagory.find({
+        _id: {$ne: catagoryId},
+        })
+        .populate("courses")
+        .exec();
+
+    //top selling course
+    
+    //return res
+    return res.status(200).json({
+        success:true,
+        message: "course if fetched successfully",
+        data:{
+            course,
+            differentCategories,
+        }
+    })
+    }
+    catch(error){
+        console.log("error in tag fetch ", err);
+        return res.status(500).json({
+            success:false,
+            message:err.message
+        })
+    }
+}

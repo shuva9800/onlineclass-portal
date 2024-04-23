@@ -1,6 +1,6 @@
 const Section = require("../model/Section");
 const Course= require("../models/courses");
-const section = require("../models/section");
+// const section = require("../models/section");
 
 
 exports.sectionCreate = async (req,res) =>{
@@ -27,8 +27,14 @@ exports.sectionCreate = async (req,res) =>{
                  }
          },
             {new:true}
-        ).populate("courseContent") 
-        .populate("subsection")  //?? needed or not?
+        ).populate(
+            {
+                path:"courseContent",
+                populate:{                                              //?? needed or not?
+                    path:"subsection"
+                },
+            }
+        )   
         .exec()
         // return responce
         return res.status(200).json({
@@ -91,7 +97,18 @@ exports.deleteSection = async (req,res)=>{
       const {sectionId} = req.params;
       //find by id and delete the course
       await Section.findByIdAndDelete(sectionId);
-     // ??? we need to update course schema
+ // ??? we need to update course schema
+     await Course.updateMany(
+        {courseConten:sectionId},
+        {
+            $pull:{
+                courseConten:sectionId,
+            }
+        },
+        {new: true}
+        
+                                    
+    )
   
      //responce return
      return res.status(200).json({

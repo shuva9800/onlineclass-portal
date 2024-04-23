@@ -118,6 +118,15 @@ exports.deleteSubSection = async (req,res)=>{
         await subSection.findByIdAndDelete(subsectionId);
      
         // ??? we need to update course schema
+        await Section.updateMany(
+            {subsection :subsectionId},
+            {
+                $pull:{
+                    subsection :subsectionId,
+                }
+            },
+            {new:true},
+        )
      
         //responce return
         return res.status(200).json({

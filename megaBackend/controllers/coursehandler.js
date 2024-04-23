@@ -117,24 +117,43 @@ exports.getSpecificCourse =async (req,res)=>{
             })
         }
         const courseDetails = await coures.findById({_id: courseid})
-                                                .populate("instractor")
-                                                .populate("courseContent")
+                                                .populate(
+                                                    {
+                                                    path: "instractor",
+                                                    populate:{
+                                                        path: "additionalInfo"
+                                                    },
+                                                    }
+                                                )
+                                                .populate({
+                                                    path: "courseContent",
+                                                    populate:{
+                                                        path: "additionalInfo",
+                                                    },
+                                                })
                                                 .populate("ratingandreview")
-                                                .populate("studentEnroll")
+                                                .populate(
+                                                    {
+                                                        path: "studentEnroll",
+                                                        populate:{
+                                                            path: "additionalInfo"
+                                                        },
+                                                    }
+                                                )
                                                 .populate("catagory")
                                                 .exec();
        
        if(!courseDetails){
         return res.status(400).json({
             success:false,
-            message:"course is not found",
+            message:`course is not found which course id is:- ${courseid}`,
 
         })
        }
        return res.status(200).json({
         success:true,
         message:"course fetch successfully",
-        course_details: courseDetails,
+        data: courseDetails,
        })                                       
     }
     catch(error){

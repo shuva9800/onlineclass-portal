@@ -1,5 +1,3 @@
-
-// const profile = require("../models/profile");
 const Profile = require("../models/profile");
 const User = require("../models/user");
 const Course = require("../models/courses");
@@ -79,10 +77,13 @@ exports.deleteAccount = async (req,res)=>{
         const userprofile = user.additionalInfo;
         await Profile.findByIdAndDelete(userprofile);
          //delete user from all enroll course?
-        // await Course.updateMany({ studentEnroll: userId }, { $pull: { studentEnroll: userId } });
-         const allCourse = await Course.find();
-         const enrollUser = allCourse.studentEnroll;
-         await enrollUser.findByIdAndDelete({_id:userId});// action required
+         await Course.updateMany({ studentEnroll: userId }, { $pull: { studentEnroll: userId } });
+         //.1
+        //  const allCourse = await Course.find();
+        //  const enrollUser = allCourse.studentEnroll;
+        //  await enrollUser.findByIdAndDelete({_id:userId});
+        //.5
+        // action required 1-5
 
         // delete user
         const deleteUser = await User.findByIdAndDelete({_id:userId});
@@ -111,13 +112,13 @@ exports.getAllDetails = async (req,res)=>{
             //get id
         const id = req.findPerson.id;
         //find user details
-        const uerDetails = await User.findById(id).populate("additionalInfo").exec();
+        const userDetails = await User.findById(id).populate("additionalInfo").exec();
         //return res
         return res.status(200).json({
 
             success: true,
             message: "user details is here:-",
-            uerDetails
+            userDetails
         })
     }
     catch(error){

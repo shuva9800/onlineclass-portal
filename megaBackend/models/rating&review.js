@@ -3,19 +3,24 @@ const mongoose = require('mongoose');
 
 const ratingandreviewSchema = new mongoose.Schema({
     user:{
-        type: 'string',
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref: "User",
     },
-    dateOfbirth:{
-        type: 'string',
+    rating: {
+        type:Number,
+        required:true,
     },
-    aboute:{
-        type: 'string',
-        trim:true
+    review:{
+        type:String,
+        required:true,
     },
-    contactNumber:{
-        type: Number,
-        trim:true,
-    }
+    course: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true,
+		ref: "Course",
+		index: true,
+	},
 
 
 })
