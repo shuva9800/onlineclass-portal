@@ -222,9 +222,16 @@ exports.login = async (req, res) =>{
 //password change
 
 exports.passwordChange = async (req,res)=> {
-    try{
-        const {email, oldPassword, newPassword,confirmnewPassword} = req.body;
-        const user = await User.findOne({email});
+    try{//is there email is needed
+        const { oldPassword, newPassword,confirmnewPassword} = req.body;
+        const userId = req.findPerson.id;
+        if(!userId){
+            return res.status(404).json({
+                success: false,
+                message:"user id not matching",
+            })
+        }
+        const user = await User.findById({userId});
         if(await bcrypt.compare(oldPassword, user.password)){
             if(newPassword !== confirmnewPassword){
                 return res.status(400).json({
@@ -232,14 +239,14 @@ exports.passwordChange = async (req,res)=> {
                     message: "newpassword and confirmnewPassword does not match"
                 })
             }
-            const updatedPassword = await bcrypt.hash(newPassword,10);
-            const passwordchange = await User.findByIdAndUpdate({_id:user._id},{password: updatedPassword},{new: true})
+            const passwordUpdate= await bcrypt.hash(newPassword,10);
+            const updatedPassword = await User.findByIdAndUpdate({_id:user._id},{password: passwordUpdate},{new: true})
             const mailSend = require("../utility/mailSender");
             const responseOfMailsend = await mailSend(user.email ,"passwordchange-complete","password update successfully" );
             return res.status(200).json({
                 success:true,
                 message: "'password update successfully",
-                passwordchange,
+                updatedPassword,
                 responseOfMailsend,
 
             })
