@@ -56,7 +56,7 @@ exports.updateProfile = async (req,res)=>{
 }
 
 //delete account
-//how to schedule delete accunt operation ??crone job
+//how to schedule delete account operation ??crone job
 //action needed in delete course section delet user????????
 
 exports.deleteAccount = async (req,res)=>{
@@ -74,7 +74,7 @@ exports.deleteAccount = async (req,res)=>{
         }
 
         //delete user profile
-        const userprofile = user.additionalInfo;
+        const userprofile = User.additionalInfo;
         await Profile.findByIdAndDelete(userprofile);
          //delete user from all enroll course?
          await Course.updateMany({ studentEnroll: userId }, { $pull: { studentEnroll: userId } });

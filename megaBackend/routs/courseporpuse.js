@@ -18,11 +18,11 @@ const{checkAuthentication,student,admin,instractor} = require("../middleware/aut
 //map handeler function with path
 router.post("/createCourse",checkAuthentication,instractor,courseCreate );
 router.post("/createSection", checkAuthentication,instractor,sectionCreate );
-router.post("/updateSection", checkAuthentication,instractor,updateSection );
-router.post("/deleteSection", checkAuthentication,instractor,deleteSection );
+router.put("/updateSection", checkAuthentication,instractor,updateSection );
+router.delete("/deleteSection", checkAuthentication,instractor,deleteSection );
 router.post("/createSubSection", checkAuthentication,instractor,createSubSection );
-router.post("/updateSubSection", checkAuthentication,instractor,updateSubSection );
-router.post("/deleteSubSection", checkAuthentication,instractor,deleteSubSection );
+router.put("/updateSubSection", checkAuthentication,instractor,updateSubSection );
+router.delete("/deleteSubSection", checkAuthentication,instractor,deleteSubSection );
 //get datails of specfic courses
 router.post("/getSpecificCourse",getSpecificCourse);
 //get all courses
@@ -33,6 +33,7 @@ router.post("/catagoryCreation",checkAuthentication,admin,catagoryCreation );
 //get specific catagory details
 router.post("/catagoryPageDetails",catagoryPageDetails );
 //gaet all catagory details
+
 router.get("/showAllCatagory",showAllCatagory );
 
 //student only fielld because rating and review only giv student

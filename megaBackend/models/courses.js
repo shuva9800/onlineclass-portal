@@ -9,9 +9,9 @@ const courseSchema = new mongoose.Schema({
     type: 'string',
  },
  instractor:{
-   type:mongoose.Schema.Types.ObjectId,
+   type: mongoose.Schema.Types.ObjectId,
     ref:"User",
-    required:true,
+    //required:true,
  },
  whatYouWillLearn:{
     type: 'string',
@@ -36,8 +36,9 @@ const courseSchema = new mongoose.Schema({
     type:"string",
  },
  catagory:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref: "Catagory"
+   type: mongoose.Schema.Types.ObjectId,
+    ref: "Catagory",
+    //required: true,
  },
  tags:{
    type:String,
@@ -46,7 +47,7 @@ const courseSchema = new mongoose.Schema({
     {
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
-        required: true,
+      //   required: true,
     }
  ]
 

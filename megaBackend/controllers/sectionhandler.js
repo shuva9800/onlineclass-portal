@@ -1,4 +1,4 @@
-const Section = require("../model/Section");
+const Section = require("../models/section");
 const Course= require("../models/courses");
 // const section = require("../models/section");
 

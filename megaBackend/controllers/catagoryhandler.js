@@ -34,8 +34,8 @@ exports.showAllCatagory = async (req,res)=>{
     try{
         const allCatagory = await Catagory.find({},{name:true, description:true});
         return res.status(200).json({
-            success:false,
-            message:"alltags fetched",
+            success:true,
+            message:"all catagory fetched",
             allCatagory,
         })
     }

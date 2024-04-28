@@ -8,7 +8,7 @@ const subsectionSchema = new mongoose.Schema({
         required: true,
     },
     timeduration:{
-        type: number,
+        type: "number",
         required: true,
     },
     description:{
@@ -16,7 +16,7 @@ const subsectionSchema = new mongoose.Schema({
         required: true,
     },
     videoUrl:{
-        type: 'string',
+        type: "string",
         required: true,
     }
 

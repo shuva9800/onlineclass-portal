@@ -1,22 +1,22 @@
 const express = require("express")
 const router = express.Router();
 
-const {checkAuthentication} = require("../middleware/authorize")
+const {checkAuthentication,student} = require("../middleware/authorize")
 
 
 //profile handler function import
 const {updateProfile,deleteAccount,getAllDetails , updateDisplayPicture,
-    getEnrolledCourses} = require("../controller/profilehandler");
+    getEnrolledCourses} = require("../controllers/profilehandler");
 
 
 //map handler function with path
-router.post("/updateProfile",checkAuthentication,updateProfile); 
-router.post("/deleteAccount",checkAuthentication,deleteAccount);
-router.post("/deleteAccount",checkAuthentication,deleteAccount);    
-router.get("/deleteAccount",checkAuthentication,deleteAccount);  
+router.put("/updateProfile",checkAuthentication,updateProfile); 
+router.delete("/deleteAccount",checkAuthentication,student,deleteAccount);    
+router.get("/getAllDetails",checkAuthentication,getAllDetails);  
 //enroll course
-router.get("/getEnrolledCourses",checkAuthentication,getEnrolledCourses);    
-router.post("/updateDisplayPicture",checkAuthentication,updateDisplayPicture); 
+//writer controller for those route
+//  router.get("/getEnrolledcourses",checkAuthentication,getEnrolledCourses);    
+// router.put("/updateDisplayPicture",checkAuthentication,updateDisplayPicture); 
 
 
 //exports route

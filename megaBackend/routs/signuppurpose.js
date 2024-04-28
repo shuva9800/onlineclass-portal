@@ -11,7 +11,7 @@ const {checkAuthentication} = require("../middleware/authorize")
 router.post("/signup", signUp);
 router.post("/sendotp", otpCreation);
 router.post("/login", login);
-router.post("/updatepassword",checkAuthentication,passwordChange );
+router.put("/updatepassword",checkAuthentication,passwordChange );
 
 
 //reset password middle ware

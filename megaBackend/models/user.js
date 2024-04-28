@@ -20,25 +20,30 @@ const userSchema = new mongoose.Schema({
             type: 'string',
             required: true,
         },
+        confirmpassword:{
+            type: 'string',
+            required: true,
+        },
         accountType:{
             type: 'string',
-            enum:["Student","Admin","Instractor"]
+            enum:["Student","Admin","Instractor"],
+            required: true,
         },
         additionalInfo:{
             type:mongoose.Schema.Types.ObjectId,
-            required: true,
+            // required: true,
             ref: "Profile"
         },
         courses:
            [ {
             type:mongoose.Schema.Types.ObjectId,
-            required: true,
+            // required: true,
             ref: "Course"
              }
         ],
         image:{
             type: "string",
-            requiered:true,
+            // requiered:true,
 
         },
         //add on active and aprove key
@@ -59,7 +64,7 @@ const userSchema = new mongoose.Schema({
         coureseProgress:[
             {
                 type:mongoose.Schema.Types.ObjectId,
-                required: true,
+                // required: true,
                 ref: "CourseProgress"
             }
         ],

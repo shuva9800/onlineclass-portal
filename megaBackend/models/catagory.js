@@ -4,10 +4,11 @@ const mongoose = require('mongoose');
 const catagorySchema = new mongoose.Schema({
   name:{
     type:"string",
+    required: true
     
   },
   description:{
-    type: "'string'",
+    type: "string",
     required:true
   },
   course: [{
