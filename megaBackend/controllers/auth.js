@@ -63,6 +63,7 @@ exports.otpCreation = async (req,res) => {
 exports.signUp = async (req,res) => {
 try{
         //fetch data from req body
+        console.log("inside login:-", req.body);
     const {firstName, lastName, email,password,confirmPassword,accountType,phoneNumber,otp} = req.body;
     console.log("sifnup Section")
     // console.log(req.body);
@@ -161,6 +162,8 @@ catch(error){
 
 exports.login = async (req, res) =>{
     try{
+        console.log("inside login boody:-")
+        console.log(req.body);
          const {email, password}= req.body;
          if(!email || !password){
             return res.status(401).json({
