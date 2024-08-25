@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  font-family: "Inter", sans-serif;
+  transition: 0.3s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+label {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+}
+
+/* heading 36px */
+
+h1, .h1, h2, .h2{
+    font-size: 2.25rem; 
+}
+
+/* sub-heading 30px */
+h3, .h3{
+    font-size: 1.875rem;
+}
+
+/* sub-heading 20px */
+h4, .h4{
+    font-size: 1.25rem;
+}
+
+/* sub-heading 18px */
+h5, .h5, h6, .h6{
+    font-size: 1.125rem;
+}
+
+/* paragraph 16px */
+p, .para, span, label {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+
