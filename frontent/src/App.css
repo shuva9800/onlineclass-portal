@@ -81,12 +81,15 @@ header ul li a.header-link-icons:hover, .header-link-icons:hover{
 }
 
 .drop-down-menu.closed-menu{
-  transform: translateY(-2rem);
+  /* transform: translateY(-2rem);
   opacity: 0;
-  z-index: -1;
+  z-index: -1; */
+  display: none;
   
 }
 .drop-down-menu.open-menu{
-  transform: translateY(0);
-  opacity: 1;
+  /* transform: translateY(0);
+  opacity: 1; */
+  display: flex;
+  flex-direction: column;
 }
